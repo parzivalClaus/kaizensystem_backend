@@ -5,6 +5,19 @@ import bcrypt from 'bcryptjs';
 const prisma = new PrismaClient()
 
 class UserService { 
+    async validateExistsById(id: number, req: Request, res: Response) {
+
+        const user = await prisma.user.findUnique({
+            where: {  id: +id }
+        })
+
+        if (!user) {
+            return { status: 400, error: 'User does not exists' };
+        }
+
+        return user;
+    }
+
     async validate(req: Request, res: Response) {
         const schema = Yup.object().shape({
             name: Yup.string().required(),

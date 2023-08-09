@@ -13,7 +13,9 @@ app.post('/sessions', sessionController.store)
 app.use(authMiddleware);
 
 app.get('/users', userController.index)
+app.get('/users/:id', userController.find)
 app.post('/users', userController.store)
+app.delete('/users/:id', userController.delete)
 
 app.get('/registers', registerController.index)
 app.post('/registers', registerController.store)
